@@ -37,7 +37,7 @@ class Main extends pluginBase implements Listener
  			$this->getLogger()->info("§lバージョン:{$this->getDescription()->getVersion()}");
  			$this->getLogger()->info("§l§b=========================");
  			$this->getServer()->getPluginManager()->registerEvents($this,$this);
- 			$this->con = new Config($this->getDataFolder()."Message.yml", Config::YAML,
+ 			$this->con = new Config($this->getDataFolder()."ip.yml", Config::YAML,
 			[
 				"ip" => "xxxx.jp",
 				"port" => 19132,
@@ -110,8 +110,9 @@ class Main extends pluginBase implements Listener
 			if($data === "null\n") {
 			}else{
 				if ($id === 73612) {
+					$port = intval($result[2]); //string型で返されるからint型に変換する
 					$this->con->set("ip",$result[1]);
-					$this->con->set("port",$result[2]);
+					$this->con->set("port",$port);
 					$this->con->save();
 				}
 			}
