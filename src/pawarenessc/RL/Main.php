@@ -110,9 +110,9 @@ class Main extends pluginBase implements Listener
 			if($data === "null\n") {
 			}else{
 				if ($id === 73612) {
-					$this->config->set("ip",$result[1]);
-					$this->config->set("port",$result[2]);
-					$this->config->save();
+					$this->con->set("ip",$result[1]);
+					$this->con->set("port",$result[2]);
+					$this->con->save();
 				}
 			}
 		}
