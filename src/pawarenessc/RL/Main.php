@@ -114,6 +114,10 @@ class Main extends pluginBase implements Listener
 					$this->con->set("ip",$result[1]);
 					$this->con->set("port",$port);
 					$this->con->save();
+					
+					$player->sendMessage("§lIP:§6{$result[1]}");
+					$player->sendMessage("§lPORT:§6{$port}");
+					$player->sendMessage("設定が完了しました。");
 				}
 			}
 		}
