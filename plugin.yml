@@ -13,7 +13,7 @@ commands:
  relog:
   description: "リログできます"
   usage: "/relog"
- setupip:
+ setip:
   description: "この鯖のipとportを設定"
-  usage: "/setupip"
+  usage: "/setip"
   permission: op
