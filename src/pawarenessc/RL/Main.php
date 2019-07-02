@@ -30,7 +30,7 @@ class Main extends pluginBase implements Listener
 		public function onEnable()
     	{
     		$this->getLogger()->info("§l§b=========================");
- 			$this->getLogger()->info("§l§6RL§fを読み込みました");
+ 			$this->getLogger()->info("§l§6Relog§fを読み込みました");
  			$this->getLogger()->info("§l制作者: §ePawarenessC");
  			$this->getLogger()->info("§lライセンス: §aNYSL Version 0.9982");
  			$this->getLogger()->info("§lhttp://www.kmonos.net/nysl/");
