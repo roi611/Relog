@@ -71,7 +71,7 @@ class Main extends pluginBase implements Listener
 			Server::getInstance()->broadcastPacket(Server::getInstance()->getOnlinePlayers(), $pk);
 			break;
 			
-			case "setupip":
+			case "setip":
 			$data = [
 				"type" => "custom_form",
 				"title" => "SETUP",
