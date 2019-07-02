@@ -1,0 +1,19 @@
+name: Relog
+main: pawarenessc\RL\Main
+version: 0.1
+api: [4.0.0,3.0.0,3.5.0]
+author: PawarenessC
+load: POSTWORLD
+description: Relog...
+commands:
+ arelog:
+  description: "全員をリログさせます"
+  usage: "/arelog"
+  permission: op
+ relog:
+  description: "リログできます"
+  usage: "/relog"
+ setupip:
+  description: "この鯖のipとportを設定"
+  usage: "/setupip"
+  permission: op
