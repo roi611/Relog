@@ -1,6 +1,6 @@
 name: Relog
 main: pawarenessc\RL\Main
-version: 0.
+version: 0.5
 api: [4.0.0,3.0.0,3.5.0]
 author: PawarenessC
 load: POSTWORLD
