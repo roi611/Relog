@@ -117,4 +117,11 @@ class Main extends pluginBase implements Listener
 			}
 		}
 	}
+	
+	public function createWindow(Player $player, $data, int $id){
+		$pk = new ModalFormRequestPacket();
+		$pk->formId = $id;
+		$pk->formData = json_encode($data, JSON_PRETTY_PRINT | JSON_BIGINT_AS_STRING | JSON_UNESCAPED_UNICODE);
+		$player->dataPacket($pk);
+	}
 }
