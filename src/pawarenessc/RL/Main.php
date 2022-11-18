@@ -6,7 +6,7 @@ use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat;
 
 use pocketmine\event\Listener;
-use pocketmine\Player;
+use pocketmine\player\Player;
 
 use pocketmine\scheduler\Task;
 
@@ -23,11 +23,11 @@ use pocketmine\network\mcpe\protocol\ModalFormRequestPacket;
 use pocketmine\network\mcpe\protocol\ModalFormResponsePacket;
 use pocketmine\network\mcpe\protocol\TransferPacket;
 
-class Main extends pluginBase implements Listener
+class Main extends PluginBase implements Listener
 {
 		
 		
-		public function onEnable()
+		public function onEnable():void
     	{
     		$this->getLogger()->info("§l§b=========================");
  			$this->getLogger()->info("§l§6Relog§fを読み込みました");
@@ -39,13 +39,19 @@ class Main extends pluginBase implements Listener
  			$this->getServer()->getPluginManager()->registerEvents($this,$this);
  			$this->con = new Config($this->getDataFolder()."ip.yml", Config::YAML,
 			[
-				"ip" => "xxxx.jp",
-				"port" => 19132,
+				"ip" => $this->getServer()->getIp(),
+				"port" => $this->getServer()->getPort(),
 			]);
   		}
   		
   	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool
   	{
+        
+        if(!$sender instanceof Player){
+        	$sender->sendMessage('ゲーム内で実行してください');
+            return true;
+        }
+        
 		$name = $sender->getName();
 		
 		$config = $this->con;
@@ -59,18 +65,9 @@ class Main extends pluginBase implements Listener
 			$pk->address = $ip;
 			$pk->port = $port;
 			
-			$sender->dataPacket($pk);
+			$sender->getNetworkSession()->sendDataPacket($pk);
 			break;
-			
-			
-			case "arelog":
-			$pk =  new TransferPacket();
-			$pk->address = $ip;
-			$pk->port = $port;
-			
-			Server::getInstance()->broadcastPacket(Server::getInstance()->getOnlinePlayers(), $pk);
-			break;
-			
+		
 			case "setip":
 			$data = [
 				"type" => "custom_form",
@@ -102,8 +99,8 @@ class Main extends pluginBase implements Listener
 	
 	public function onDataPacketReceiveEvent(DataPacketReceiveEvent $event) {
 		$pk = $event->getPacket();
-		$player = $event->getPlayer();
 		if($pk instanceof ModalFormResponsePacket) {
+			$player = $event->getOrigin()->getPlayer();
 			$id = $pk->formId;
 			$data = $pk->formData;
 			$result = json_decode($data);
@@ -127,6 +124,6 @@ class Main extends pluginBase implements Listener
 		$pk = new ModalFormRequestPacket();
 		$pk->formId = $id;
 		$pk->formData = json_encode($data, JSON_PRETTY_PRINT | JSON_BIGINT_AS_STRING | JSON_UNESCAPED_UNICODE);
-		$player->dataPacket($pk);
+		$player->getNetworkSession()->sendDataPacket($pk);
 	}
 }
